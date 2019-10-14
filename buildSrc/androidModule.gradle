@@ -57,9 +57,3 @@ configurations.all {
         }
     }
 }
-
-task printTestInstrumentationRunnerName {
-    doLast {
-        println "$android.defaultConfig.testInstrumentationRunner"
-    }
-}
