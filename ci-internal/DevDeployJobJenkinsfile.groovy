@@ -35,6 +35,7 @@ def projectConfigurationFile = "buildSrc/projectConfiguration.json"
 def androidStandardTemplateName = "android-standard-template"
 def androidStandardTemplateUrl = "https://bitbucket.org/surfstudio/$androidStandardTemplateName"
 def releaseNotesChangesFileUrl = "buildSrc/releaseNotesDiff.txt"
+def idChatAndroidSlack = "CQS581YBF"
 
 //vars
 def branchName = ""
@@ -110,8 +111,7 @@ pipeline.stages = [
             String releaseNotesChanges = script.readFile(releaseNotesChangesFileUrl)
 
             def message = releaseNotesChanges
-            def groupId = "CQS581YBF"
-            JarvisUtil.sendMessageToGroup(script, message, groupId, "slack", true)
+            JarvisUtil.sendMessageToGroup(script, message, idChatAndroidSlack, "slack", true)
         },
         pipeline.stage(CHECK_BRANCH_AND_VERSION) {
             String globalConfigurationJsonStr = script.readFile(projectConfigurationFile)
