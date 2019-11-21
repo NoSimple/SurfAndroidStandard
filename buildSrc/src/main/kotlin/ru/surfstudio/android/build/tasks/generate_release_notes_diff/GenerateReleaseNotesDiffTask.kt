@@ -52,7 +52,7 @@ open class GenerateReleaseNotesDiffTask : DefaultTask() {
     }
 
     private fun writeToFile(text: String)
-            = File(releaseNotesChangesFileUrl).appendText(text)
+            = File(releaseNotesChangesFileUrl).appendText("$text\n")
 
     private fun writeDiff(diffs: List<GitDiff>) {
         var prev: GitDiff? = null
