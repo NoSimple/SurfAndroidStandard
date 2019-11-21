@@ -104,13 +104,11 @@ pipeline.stages = [
             RepositoryUtil.saveCurrentGitCommitHash(script)
         },
         pipeline.stage(CHECK_RELEASE_NOTES_CHANGES) {
-            def lastDestinationBranchCommitHash = script.sh(returnStdout: true, script: 'git ls-remote https://trofimentko-surf@bitbucket.org/surfstudio/android-standard.git HEAD | awk \'{ print $1}\'').trim()
-            script.sh("./gradlew generateReleaseNotesDiff -PrevisionToCompare=${lastDestinationBranchCommitHash}")
+            def mainBranchHeadHash = script.sh(returnStdout: true, script: 'git ls-remote https://trofimentko-surf@bitbucket.org/surfstudio/android-standard.git HEAD | awk \'{ print $1}\'').trim()
+            script.sh("./gradlew generateReleaseNotesDiff -PrevisionToCompare=${mainBranchHeadHash}")
+            String releaseNotesChanges = script.readFile("buildSrc/releaseNotesDiff.txt")
 
-            String fileText = script.readFile("buildSrc/releaseNotesDiff.txt")
-            script.echo "qwerty2 \n ${fileText}"
-
-            def message = "HASH = ${lastDestinationBranchCommitHash} \n ${fileText}"
+            def message = releaseNotesChanges
             def groupId = "CQS581YBF"
             JarvisUtil.sendMessageToGroup(script, message, groupId, "slack", true)
         },
