@@ -34,7 +34,7 @@ def MIRROR_COMPONENTS = 'Mirror Components'
 def projectConfigurationFile = "buildSrc/projectConfiguration.json"
 def androidStandardTemplateName = "android-standard-template"
 def androidStandardTemplateUrl = "https://bitbucket.org/surfstudio/$androidStandardTemplateName"
-def releaseNotesChangeFileUrl = "buildSrc/releaseNotesDiff.txt"
+def releaseNotesChangesFileUrl = "buildSrc/releaseNotesDiff.txt"
 
 //vars
 def branchName = ""
@@ -107,7 +107,7 @@ pipeline.stages = [
         pipeline.stage(CHECK_RELEASE_NOTES_CHANGES) {
             def mainBranchHeadHash = script.sh(returnStdout: true, script: 'git ls-remote https://trofimentko-surf@bitbucket.org/surfstudio/android-standard.git HEAD | awk \'{ print $1}\'').trim()
             script.sh("./gradlew generateReleaseNotesDiff -PrevisionToCompare=${mainBranchHeadHash}")
-            String releaseNotesChanges = script.readFile(releaseNotesChangeFileUrl)
+            String releaseNotesChanges = script.readFile(releaseNotesChangesFileUrl)
 
             def message = releaseNotesChanges
             def groupId = "CQS581YBF"
