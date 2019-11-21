@@ -15,6 +15,7 @@ import ru.surfstudio.ci.utils.android.config.AvdConfig
 
 // Stage names
 def CHECKOUT = 'Checkout'
+def CHECK_RELEASE_NOTES_CHANGES = "Check release notes changes "
 def CHECK_BRANCH_AND_VERSION = 'Check Branch & Version'
 def CHECK_CONFIGURATION_IS_NOT_PROJECT_SNAPSHOT = 'Check Configuration Is Not Project Snapshot'
 def INCREMENT_GLOBAL_ALPHA_VERSION = 'Increment Global Alpha Version'
@@ -101,11 +102,8 @@ pipeline.stages = [
             CommonUtil.abortDuplicateBuildsWithDescription(script, AbortDuplicateStrategy.ANOTHER, buildDescription)
 
             RepositoryUtil.saveCurrentGitCommitHash(script)
-
-
-//            def lastDestinationBranchCommitHash = RepositoryUtil.getCurrentCommitHash(script)
-//            git ls-remote https://trofimentko-surf@bitbucket.org/surfstudio/android-standard.git HEAD | awk '{ print $1}'
-//            def lastDestinationBranchCommitHash = "0a16df92d1cc2ae4ba9e53511a0ea9d888021ee3"
+        },
+        pipeline.stage(CHECK_RELEASE_NOTES_CHANGES) {
             def lastDestinationBranchCommitHash = script.sh(returnStdout: true, script: 'git ls-remote https://trofimentko-surf@bitbucket.org/surfstudio/android-standard.git HEAD | awk \'{ print $1}\'').trim()
             script.sh("./gradlew generateReleaseNotesDiff -PrevisionToCompare=${lastDestinationBranchCommitHash}")
 
