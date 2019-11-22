@@ -56,9 +56,9 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
     //private fun writeToFile(text: String) =
     private fun writeToFile(text: String) {
         val sr = StandardRepository()
-        val branches = sr.getAllBranches().first().let {
+       // val branches = sr.getAllBranches().first().let {
             releaseNotesChangesFile.appendText("${sr.getCommit(revisionToCompare)}\n")
-        }
+      //  }
     }
 
     private fun writeDiff(diffs: List<GitDiff>) {
