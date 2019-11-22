@@ -8,6 +8,7 @@ import ru.surfstudio.android.build.ReleaseNotes
 import ru.surfstudio.android.build.exceptions.ComponentNotFoundException
 import ru.surfstudio.android.build.model.Component
 import ru.surfstudio.android.build.tasks.changed_components.GitCommandRunner
+import ru.surfstudio.android.build.tasks.deploy_to_mirror.repository.StandardRepository
 import ru.surfstudio.android.build.utils.EMPTY_STRING
 import java.io.File
 
@@ -50,7 +51,13 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
         if (diffs.isNotEmpty()) println()
     }
 
-    private fun writeToFile(text: String) = releaseNotesChangesFile.appendText("$text\n")
+    //private fun writeToFile(text: String) =
+    private fun writeToFile(text: String) {
+        val sr = StandardRepository()
+        val branches = sr.getAllBranches().map {
+            releaseNotesChangesFile.appendText("${it.name}\n")
+        }
+    }
 
     private fun writeDiff(diffs: List<GitDiff>) {
         var prev: GitDiff? = null
