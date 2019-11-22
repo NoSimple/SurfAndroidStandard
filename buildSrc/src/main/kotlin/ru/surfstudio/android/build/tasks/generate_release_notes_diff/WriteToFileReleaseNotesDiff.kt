@@ -11,6 +11,7 @@ import ru.surfstudio.android.build.model.Component
 import ru.surfstudio.android.build.tasks.changed_components.GitCommandRunner
 import ru.surfstudio.android.build.tasks.deploy_to_mirror.repository.StandardRepository
 import ru.surfstudio.android.build.utils.EMPTY_STRING
+import ru.surfstudio.android.build.utils.extractProperty
 import java.io.File
 
 /**
@@ -56,7 +57,7 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
     private fun writeToFile(text: String) {
         val sr = StandardRepository()
         val branches = sr.getAllBranches().first().let {
-            releaseNotesChangesFile.appendText("${sr.getAllCommits("d4e80b90a93f10f697ab13a43c096392afae0512",10)}\n")
+            releaseNotesChangesFile.appendText("${sr.getAllCommits(project.extractProperty(GradleProperties.COMMIT),10)}\n")
         }
     }
 
