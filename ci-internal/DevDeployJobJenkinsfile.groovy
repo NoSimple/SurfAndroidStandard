@@ -107,6 +107,7 @@ pipeline.stages = [
 
 
 
+            script.sh "ls"
             def mainBranchHeadHash = script.sh(returnStdout: true, script: 'git ls-remote https://trofimentko-surf@bitbucket.org/surfstudio/android-standard.git HEAD | awk \'{ print $1}\'').trim()
             script.sh("./gradlew writeToFileReleaseNotesDiff -PrevisionToCompare=${mainBranchHeadHash}")
             String releaseNotesChanges = script.readFile(releaseNotesChangesFileUrl)
