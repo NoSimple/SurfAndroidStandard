@@ -1,5 +1,6 @@
 package ru.surfstudio.android.build.tasks.generate_release_notes_diff
 
+import org.eclipse.jgit.revwalk.RevCommit
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 import ru.surfstudio.android.build.Components
@@ -55,7 +56,7 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
     private fun writeToFile(text: String) {
         val sr = StandardRepository()
         val branches = sr.getAllBranches().first().let {
-            releaseNotesChangesFile.appendText("${sr.getAllCommits(it.toString(),1)}\n")
+            releaseNotesChangesFile.appendText("${sr.getAllCommits("e623aee00f40bc8ff7a819e6ee59f98ca8c32a92",10)}\n")
         }
     }
 
