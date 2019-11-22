@@ -106,11 +106,12 @@ pipeline.stages = [
 
 
 
-            def mainBranchHeadHash = script.sh(returnStdout: true, script: 'git ls-remote https://trofimentko-surf@bitbucket.org/surfstudio/android-standard.git HEAD | awk \'{ print $1}\'').trim()
-            script.sh("./gradlew writeToFileReleaseNotesDiff -PrevisionToCompare=${mainBranchHeadHash}")
-            String releaseNotesChanges = script.readFile(releaseNotesChangesFileUrl)
+//            def mainBranchHeadHash = script.sh(returnStdout: true, script: 'git ls-remote https://trofimentko-surf@bitbucket.org/surfstudio/android-standard.git HEAD | awk \'{ print $1}\'').trim()
+//            script.sh("./gradlew writeToFileReleaseNotesDiff -PrevisionToCompare=${mainBranchHeadHash}")
+//            String releaseNotesChanges = script.readFile(releaseNotesChangesFileUrl)
 
-            JarvisUtil.sendMessageToGroup(script, releaseNotesChanges, idChatAndroidSlack, "slack", true)
+//            JarvisUtil.sendMessageToGroup(script, releaseNotesChanges, idChatAndroidSlack, "slack", true)
+            JarvisUtil.sendMessageToGroup(script, "tedt", idChatAndroidSlack, "slack", true)
         },
         pipeline.stage(CHECK_BRANCH_AND_VERSION) {
             String globalConfigurationJsonStr = script.readFile(projectConfigurationFile)

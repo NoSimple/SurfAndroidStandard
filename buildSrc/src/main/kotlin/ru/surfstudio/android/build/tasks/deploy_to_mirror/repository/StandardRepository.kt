@@ -12,7 +12,7 @@ import java.io.File
 class StandardRepository : BaseGitRepository() {
 
     companion object {
-        const val TEMP_DIR_PATH = ""
+        const val TEMP_DIR_PATH = "temp"
     }
 
     override val repositoryPath: File = File(TEMP_DIR_PATH)
