@@ -27,3 +27,4 @@
 ##### Mvp-dialog
 * ANDDEP-215 Extend of all dialogs on AppCompatDialog
 * ANDDEP-137 Add the ability to modify errorHandler in basePresenter
+* Change two
