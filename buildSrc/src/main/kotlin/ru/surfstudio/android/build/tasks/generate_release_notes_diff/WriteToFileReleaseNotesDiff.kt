@@ -56,7 +56,7 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
     private fun writeToFile(text: String) {
         val sr = StandardRepository()
         val branches = sr.getAllBranches().first().let {
-            releaseNotesChangesFile.appendText("${sr.getAllCommits("e623aee00f40bc8ff7a819e6ee59f98ca8c32a92",10)}\n")
+            releaseNotesChangesFile.appendText("${sr.getAllCommits("d4e80b90a93f10f697ab13a43c096392afae0512",10)}\n")
         }
     }
 
