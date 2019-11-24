@@ -64,9 +64,9 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
 //
 //       // var parent = currentCommit.getParent(0)
 //       // val branchName = sr.getBranchNameByCommit(currentRevision)
-//        releaseNotesChangesFile.appendText(
-//                "branchName =\n"
-//        )
+        releaseNotesChangesFile.appendText(
+                "branchName =\n"
+        )
 
 
         // releaseNotesChangesFile.appendText("qqqqqqqqqqqq1\n")
