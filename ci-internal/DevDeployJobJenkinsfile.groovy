@@ -1,4 +1,5 @@
-@Library('surf-lib@version-2.0.0-SNAPSHOT') // https://bitbucket.org/surfstudio/jenkins-pipeline-lib/
+@Library('surf-lib@version-2.0.0-SNAPSHOT')
+// https://bitbucket.org/surfstudio/jenkins-pipeline-lib/
 import groovy.json.JsonSlurper
 import groovy.json.JsonSlurperClassic
 import ru.surfstudio.ci.*
@@ -105,13 +106,12 @@ pipeline.stages = [
             RepositoryUtil.saveCurrentGitCommitHash(script)
 
 
-
             def mainBranchHeadHash = script.sh(returnStdout: true, script: 'git ls-remote https://trofimentko-surf@bitbucket.org/surfstudio/android-standard.git HEAD | awk \'{ print $1}\'').trim()
             script.sh("./gradlew writeToFileReleaseNotesDiff -PrevisionToCompare=${mainBranchHeadHash}")
             String releaseNotesChanges = script.readFile(releaseNotesChangesFileUrl)
 
             script.echo releaseNotesChanges
-            JarvisUtil.sendMessageToGroup(script, "ok", idChatAndroidSlack, "slack", true)
+            JarvisUtil.sendMessageToGroup(script, releaseNotesChanges, idChatAndroidSlack, "slack", true)
         },
         pipeline.stage(CHECK_BRANCH_AND_VERSION) {
             String globalConfigurationJsonStr = script.readFile(projectConfigurationFile)
@@ -122,7 +122,7 @@ pipeline.stages = [
                 script.error("Deploy AndroidStandard with global version: dev/G-${globalVersion} from branch: '$branchName' forbidden")
             }
         },
-        pipeline.stage(CHECK_CONFIGURATION_IS_NOT_PROJECT_SNAPSHOT){
+        pipeline.stage(CHECK_CONFIGURATION_IS_NOT_PROJECT_SNAPSHOT) {
             script.sh "./gradlew checkConfigurationIsNotProjectSnapshotTask"
         },
         pipeline.stage(INCREMENT_GLOBAL_ALPHA_VERSION) {
@@ -191,7 +191,6 @@ pipeline.stages = [
             ]
         }
 ]
-
 
 
 pipeline.finalizeBody = {
@@ -300,7 +299,7 @@ def static getPreviousRevisionWithVersionIncrement(script) {
     if (revisionToCompare == null) {
         //gets previous commit
         def previousCommit
-        if (commits[1] !="|\\  ") {
+        if (commits[1] != "|\\  ") {
             previousCommit = commits[1]
         } else {
             previousCommit = commits[2]
