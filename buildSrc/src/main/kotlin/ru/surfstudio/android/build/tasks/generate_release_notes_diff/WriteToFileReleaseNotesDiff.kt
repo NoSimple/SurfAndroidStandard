@@ -12,6 +12,7 @@ import ru.surfstudio.android.build.tasks.changed_components.GitCommandRunner
 import ru.surfstudio.android.build.tasks.deploy_to_mirror.repository.StandardRepository
 import ru.surfstudio.android.build.utils.EMPTY_STRING
 import ru.surfstudio.android.build.utils.extractProperty
+import ru.surfstudio.android.build.utils.getAllParents
 import java.io.File
 
 /**
@@ -59,15 +60,17 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
 
     private fun writeToFile(text: String) {
         val sr = StandardRepository()
-//        for (i in 1..10){
-//            val currentCommit = sr.getCommit(currentRevision)
-//            val branchName = sr.getBranchNameByCommit(currentRevision)
-//            releaseNotesChangesFile.appendText(
-//                    "i = $i  branchName = $branchName name = ${currentCommit.name}\n"
-//            )
-//        }
+        val currentCommit = sr.getCommit(currentRevision)
+        var parent = currentCommit
+        for (i in 1..3){
+            val branchName = sr.getBranchNameByCommit(currentRevision)
+            releaseNotesChangesFile.appendText(
+                    "i = $i  branchName = $branchName name = ${parent.name}\n"
+            )
+            parent = parent.getParent(0)
+        }
 
-        releaseNotesChangesFile.appendText("qqqqqqqqqqqq1\n")
+       // releaseNotesChangesFile.appendText("qqqqqqqqqqqq1\n")
     }
 
     private fun writeDiff(diffs: List<GitDiff>) {
