@@ -116,7 +116,7 @@ abstract class BaseGitRepository {
         val branches = git.branchList()
                 .setContains(commit)
                 .call()
-                .map { it.name/*.substringAfterLast("/") */}
+                .map { it.name.substringAfterLast("/") }
                 .toMutableList()
 
         if (branches.size == 1) return branches[0]

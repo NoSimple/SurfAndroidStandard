@@ -62,7 +62,7 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
         var i = 0
         val sr = StandardRepository()
         var currentCommit = sr.getCommit(revisionToCompare)
-        val branchName = sr.getBranchNameByCommit("73e62ec7cb28bf4048dfff81cfe2aa54c5b23f3f")
+        val branchName = sr.getBranchNameByCommit("966bed2cd9303c83d47984fee0ed8b1b852356d3")
         for (j in 0..5) {
             currentCommit.parents.forEach {
                 releaseNotesChangesFile.appendText(
