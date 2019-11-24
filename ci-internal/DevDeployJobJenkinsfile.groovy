@@ -106,7 +106,7 @@ pipeline.stages = [
             RepositoryUtil.saveCurrentGitCommitHash(script)
 
 
-            def revName = script.sh(returnStdout: true, script: 'git name-rev 73e62ec7cb28bf4048dfff81cfe2aa54c5b23f3f').trim()
+            def revName = script.sh(returnStdout: true, script: 'git name-rev e80a5b7c4884b3892fdb49ac6bfa1e6719a2dcac').trim()
             def mainBranchHeadHash = script.sh(returnStdout: true, script: 'git ls-remote https://trofimentko-surf@bitbucket.org/surfstudio/android-standard.git HEAD | awk \'{ print $1}\'').trim()
             script.sh("./gradlew writeToFileReleaseNotesDiff -PrevisionToCompare=${mainBranchHeadHash}")
             String releaseNotesChanges = script.readFile(releaseNotesChangesFileUrl)
