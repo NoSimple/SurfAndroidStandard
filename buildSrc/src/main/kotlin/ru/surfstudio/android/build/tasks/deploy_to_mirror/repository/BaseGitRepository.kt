@@ -25,6 +25,13 @@ abstract class BaseGitRepository {
 
     protected val git: Git by lazy { Git.open(repositoryPath) }
 
+    fun getRevName(rev: String) = git
+            .nameRev()
+//            .addPrefix("refs/heads")
+            .add(ObjectId.fromString(rev))
+            .call()
+
+
     /**
      * Delete repository
      */
