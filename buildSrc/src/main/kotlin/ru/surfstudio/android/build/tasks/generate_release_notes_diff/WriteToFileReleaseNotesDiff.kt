@@ -33,12 +33,13 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
     @TaskAction
     fun generate() {
         extractInputArguments()
-        if (componentName.isNotEmpty()) {
-            val component = findComponent()
-            generateComponentDiff(component)
-        } else {
-            Components.value.forEach(::generateComponentDiff)
-        }
+        writeToFile("")
+//        if (componentName.isNotEmpty()) {
+//            val component = findComponent()
+//            generateComponentDiff(component)
+//        } else {
+//            Components.value.forEach(::generateComponentDiff)
+//        }
     }
 
     private fun findComponent(): Component =
@@ -53,11 +54,17 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
         if (diffs.isNotEmpty()) println()
     }
 
-    //private fun writeToFile(text: String) =
     private fun writeToFile(text: String) {
         val sr = StandardRepository()
-        val branchName = sr.getBranchNameByCommit(currentRevision)
-        releaseNotesChangesFile.appendText("${branchName}\n")
+        for (i in 1..10){
+            val currentCommit = sr.getCommit(currentRevision)
+            val branchName = sr.getBranchNameByCommit(currentRevision)
+            releaseNotesChangesFile.appendText(
+                    "i = $i  branchName = $branchName name = ${currentCommit.name}\n"
+            )
+        }
+
+//        releaseNotesChangesFile.appendText("${branchName}\n")
     }
 
     private fun writeDiff(diffs: List<GitDiff>) {
