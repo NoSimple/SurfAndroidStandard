@@ -28,7 +28,7 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
     private lateinit var revisionToCompare: String
     private lateinit var currentRevision: String
     private val releaseNotesChangesFile = File(releaseNotesChangesFileUrl).apply {
-       // if (exists()) delete()
+        if (exists()) delete()
         createNewFile()
     }
 
@@ -37,12 +37,13 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
     @TaskAction
     fun generate() {
         extractInputArguments()
-        if (componentName.isNotEmpty()) {
-            val component = findComponent()
-            generateComponentDiff(component)
-        } else {
-            Components.value.forEach(::generateComponentDiff)
-        }
+        writeToFile("")
+//        if (componentName.isNotEmpty()) {
+//            val component = findComponent()
+//            generateComponentDiff(component)
+//        } else {
+//            Components.value.forEach(::generateComponentDiff)
+//        }
     }
 
     private fun findComponent(): Component =
