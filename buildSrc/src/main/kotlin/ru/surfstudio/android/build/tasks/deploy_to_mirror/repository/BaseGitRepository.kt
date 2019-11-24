@@ -27,7 +27,7 @@ abstract class BaseGitRepository {
 
     fun getRevName(rev: String) = git
             .nameRev()
-//            .addPrefix("refs/heads")
+            .addPrefix("dev/")
             .add(ObjectId.fromString(rev))
             .call()
 
