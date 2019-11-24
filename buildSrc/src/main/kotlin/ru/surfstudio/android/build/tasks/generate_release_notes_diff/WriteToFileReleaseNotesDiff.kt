@@ -69,7 +69,7 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
                         "${i++} branchName = $branchName\n"
                 )
             }
-            currentCommit = currentCommit.getParent(0)
+            currentCommit = currentCommit.getParent(1)
         }
 //       // var parent = currentCommit.getParent(0)
 //       // val branchName = sr.getBranchNameByCommit(currentRevision)
