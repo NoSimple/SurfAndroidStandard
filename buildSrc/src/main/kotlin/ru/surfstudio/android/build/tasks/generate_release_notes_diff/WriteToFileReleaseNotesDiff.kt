@@ -66,7 +66,7 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
         for (j in 0..5) {
             currentCommit.parents.forEach {
                 releaseNotesChangesFile.appendText(
-                        "${i++} branchName = ${it.encodingName}\n"
+                        "${i++} branchName = \n"
                 )
             }
            // currentCommit = currentCommit.getParent(1)
