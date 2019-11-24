@@ -73,10 +73,7 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
 //       // val branchName = sr.getBranchNameByCommit(currentRevision)
 
         val sr = StandardRepository()
-        val branchName = git
-                .nameRev()
-                .add(ObjectId.fromString("82f50feeba9709ee2a577f384d545d9296af91b6"))
-                .call()
+        val branchName = sr.getRevName("82f50feeba9709ee2a577f384d545d9296af91b6")
         releaseNotesChangesFile.appendText("$branchName\n")
     }
 
