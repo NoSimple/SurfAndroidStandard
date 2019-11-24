@@ -59,15 +59,17 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
     }
 
     private fun writeToFile(text: String) {
+        var i = 0
         val sr = StandardRepository()
         val currentCommit = sr.getCommit(revisionToCompare)
         val branchName = sr.getBranchNameByCommit(revisionToCompare)
-//
+        currentCommit.parents.forEach {
+            releaseNotesChangesFile.appendText(
+                    "${i++} branchName = $branchName\n"
+            )
+        }
 //       // var parent = currentCommit.getParent(0)
 //       // val branchName = sr.getBranchNameByCommit(currentRevision)
-        releaseNotesChangesFile.appendText(
-                "branchName = $branchName\n"
-        )
 
 
         // releaseNotesChangesFile.appendText("qqqqqqqqqqqq1\n")
