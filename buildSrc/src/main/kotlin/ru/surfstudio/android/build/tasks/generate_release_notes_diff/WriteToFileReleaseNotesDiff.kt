@@ -28,7 +28,7 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
     private lateinit var revisionToCompare: String
     private lateinit var currentRevision: String
     private val releaseNotesChangesFile = File(releaseNotesChangesFileUrl).apply {
-        if (exists()) delete()
+       // if (exists()) delete()
         createNewFile()
     }
 
