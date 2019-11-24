@@ -37,13 +37,12 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
     @TaskAction
     fun generate() {
         extractInputArguments()
-        writeToFile("")
-//        if (componentName.isNotEmpty()) {
-//            val component = findComponent()
-//            generateComponentDiff(component)
-//        } else {
-//            Components.value.forEach(::generateComponentDiff)
-//        }
+        if (componentName.isNotEmpty()) {
+            val component = findComponent()
+            generateComponentDiff(component)
+        } else {
+            Components.value.forEach(::generateComponentDiff)
+        }
     }
 
     private fun findComponent(): Component =
