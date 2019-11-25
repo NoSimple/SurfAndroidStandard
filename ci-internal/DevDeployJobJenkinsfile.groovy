@@ -105,9 +105,8 @@ pipeline.stages = [
 
             RepositoryUtil.saveCurrentGitCommitHash(script)
 
-
-            def currentRevisionHash = RepositoryUtil.getCurrentCommitHash(script)
-            script.sh("./gradlew writeToFileReleaseNotesDiff -PrevisionToCompare=${currentRevisionHash}")
+            def previousRevision = script.sh(returnStdout: true, script: 'git log -1  --pretty=%P').trim()
+            script.sh("./gradlew writeToFileReleaseNotesDiff -PrevisionToCompare=${previousRevision}")
             String releaseNotesChanges = script.readFile(releaseNotesChangesFileUrl)
 
 
