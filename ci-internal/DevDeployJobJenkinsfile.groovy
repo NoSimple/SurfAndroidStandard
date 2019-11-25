@@ -110,11 +110,11 @@ pipeline.stages = [
 //            script.sh("./gradlew writeToFileReleaseNotesDiff -PrevisionToCompare=${mainBranchHeadHash}")
 //            String releaseNotesChanges = script.readFile(releaseNotesChangesFileUrl)
 
-            def res1 = script.sh(returnStdout: true, script: 'git show').trim()
-            def res2 = script.sh(returnStdout: true, script: 'git rev-parse e5f769bae').trim()
+            def res1 = RepositoryUtil.getCurrentCommitHash(script)
+//            def res2 = script.sh(returnStdout: true, script: 'git rev-parse e5f769bae').trim()
 
 
-            script.echo "branchName $res1   $res2 "
+            script.echo "branchName $res1"
 //            JarvisUtil.sendMessageToGroup(script, "oq", idChatAndroidSlack, "slack", true)
         },
         pipeline.stage(CHECK_BRANCH_AND_VERSION) {
