@@ -62,7 +62,7 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
     private fun writeToFile(text: String) {
         val repo = StandardRepository()
 //        repo.getCommit()
-        val name = Repository.shortenRefName()
+        val name = Repository.shortenRefName(currentRevision)
 //        val rev = repo.getCommit(currentRevision)
         releaseNotesChangesFile.appendText("qwerty ${name}\n")
     }
