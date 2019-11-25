@@ -111,8 +111,8 @@ pipeline.stages = [
             String releaseNotesChanges = script.readFile(releaseNotesChangesFileUrl)
 
 
-            script.echo "branchName $res1"
-            JarvisUtil.sendMessageToGroup(script, "oq", idChatAndroidSlack, "slack", true)
+            script.echo "branchName $releaseNotesChanges"
+//            JarvisUtil.sendMessageToGroup(script, "oq", idChatAndroidSlack, "slack", true)
         },
         pipeline.stage(CHECK_BRANCH_AND_VERSION) {
             String globalConfigurationJsonStr = script.readFile(projectConfigurationFile)
