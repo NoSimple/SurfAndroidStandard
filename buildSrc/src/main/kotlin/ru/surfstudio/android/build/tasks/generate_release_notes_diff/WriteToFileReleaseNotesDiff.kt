@@ -27,7 +27,6 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
         const val releaseNotesChangesFileUrl = "buildSrc/build/tmp/releaseNotesChanges.txt"
     }
 
-    private var revision: String = ""
     private lateinit var componentName: String
     private lateinit var revisionToCompare: String
     private lateinit var currentRevision: String
@@ -66,7 +65,7 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
 //        repo.getCommit()
 
 //        val rev = repo.getCommit(currentRevision)
-        releaseNotesChangesFile.appendText("qwerty ${revision}\n")
+        releaseNotesChangesFile.appendText("qwerty ${currentRevision}\n")
     }
 
     private fun writeDiff(diffs: List<GitDiff>) {
