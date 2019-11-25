@@ -126,8 +126,5 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
         } else {
             gitRunner.getCurrentRevisionShort()
         }
-        if (project.hasProperty("revision")) {
-            revision = project.findProperty("revision") as String
-        }
     }
 }

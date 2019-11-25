@@ -106,12 +106,15 @@ pipeline.stages = [
             RepositoryUtil.saveCurrentGitCommitHash(script)
 
 
+//            def mainBranchHeadHash = script.sh(returnStdout: true, script: 'git ls-remote https://trofimentko-surf@bitbucket.org/surfstudio/android-standard.git HEAD | awk \'{ print $1}\'').trim()
+//            script.sh("./gradlew writeToFileReleaseNotesDiff -PrevisionToCompare=${mainBranchHeadHash}")
+//            String releaseNotesChanges = script.readFile(releaseNotesChangesFileUrl)
 
-            def mainBranchHeadHash = script.sh(returnStdout: true, script: 'git ls-remote https://trofimentko-surf@bitbucket.org/surfstudio/android-standard.git HEAD | awk \'{ print $1}\'').trim()
-            script.sh("./gradlew writeToFileReleaseNotesDiff -PrevisionToCompare=${mainBranchHeadHash}")
-            String releaseNotesChanges = script.readFile(releaseNotesChangesFileUrl)
+            def res1 = script.sh(returnStdout: true, script: 'git show').trim()
+            def res2 = script.sh(returnStdout: true, script: 'git rev-parse e5f769bae').trim()
 
-            script.echo "branchName $releaseNotesChanges "
+
+            script.echo "branchName $res1   $res2 "
 //            JarvisUtil.sendMessageToGroup(script, "oq", idChatAndroidSlack, "slack", true)
         },
         pipeline.stage(CHECK_BRANCH_AND_VERSION) {
