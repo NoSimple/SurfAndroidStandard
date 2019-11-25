@@ -27,10 +27,10 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
         const val releaseNotesChangesFileUrl = "buildSrc/build/tmp/releaseNotesChanges.txt"
     }
 
+    private lateinit var revision: String
     private lateinit var componentName: String
     private lateinit var revisionToCompare: String
     private lateinit var currentRevision: String
-    private lateinit var commitHash: String
     private val releaseNotesChangesFile = File(releaseNotesChangesFileUrl).apply {
         if (exists()) delete()
         createNewFile()
@@ -66,7 +66,7 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
 //        repo.getCommit()
 
 //        val rev = repo.getCommit(currentRevision)
-        releaseNotesChangesFile.appendText("qwerty ${commitHash}\n")
+        releaseNotesChangesFile.appendText("qwerty ${revision}\n")
     }
 
     private fun writeDiff(diffs: List<GitDiff>) {
@@ -126,6 +126,8 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
         } else {
             gitRunner.getCurrentRevisionShort()
         }
-        commitHash = project.extractProperty(GradleProperties.COMMIT)
+        if (project.hasProperty("revision")) {
+            revision = project.findProperty("revision") as String
+        }
     }
 }
