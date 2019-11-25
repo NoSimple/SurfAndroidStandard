@@ -27,7 +27,7 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
         const val releaseNotesChangesFileUrl = "buildSrc/build/tmp/releaseNotesChanges.txt"
     }
 
-    private lateinit var revision: String
+    private var revision: String = ""
     private lateinit var componentName: String
     private lateinit var revisionToCompare: String
     private lateinit var currentRevision: String
