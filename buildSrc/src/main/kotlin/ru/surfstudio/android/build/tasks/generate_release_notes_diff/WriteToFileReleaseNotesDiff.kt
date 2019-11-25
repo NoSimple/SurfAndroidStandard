@@ -60,8 +60,8 @@ open class WriteToFileReleaseNotesDiff : DefaultTask() {
 
     private fun writeToFile(text: String) {
         val repo = StandardRepository()
-        val rev = repo.getCommit(currentRevision)
-        releaseNotesChangesFile.appendText("qwerty ${rev}\n")
+//        val rev = repo.getCommit(currentRevision)
+        releaseNotesChangesFile.appendText("qwerty ${currentRevision}\n")
     }
 
     private fun writeDiff(diffs: List<GitDiff>) {
