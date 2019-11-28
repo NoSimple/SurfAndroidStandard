@@ -107,7 +107,7 @@ pipeline.stages = [
             RepositoryUtil.saveCurrentGitCommitHash(script)
         },
         pipeline.stage(NOTIFY_ABOUT_NEW_RELEASE_NOTES, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR, false) {
-            def prevCommitHash = script.sh(returnStdout: true, script: 'git log -1  --pretty=%P').trim() +' qqqqqqqqqqqqq'.trim().split(" ")[1]
+            def prevCommitHash = script.sh(returnStdout: true, script: 'git log -1  --pretty=%P').trim() +' qqqqqqqqqqqqq'.trim().split()[1]
             script.echo prevCommitHash
             script.sh("./gradlew writeToFileReleaseNotesDiff -PrevisionToCompare=${prevCommitHash}")
             String releaseNotesChanges = script.readFile(releaseNotesChangesFileUrl)
