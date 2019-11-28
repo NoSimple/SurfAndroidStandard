@@ -35,7 +35,8 @@ def projectConfigurationFile = "buildSrc/projectConfiguration.json"
 def androidStandardTemplateName = "android-standard-template"
 def androidStandardTemplateUrl = "https://bitbucket.org/surfstudio/$androidStandardTemplateName"
 def releaseNotesChangesFileUrl = "buildSrc/build/tmp/releaseNotesChanges.txt"
-def idChatAndroidSlack = "CFSF53SJ1"
+//def idChatAndroidSlack = "CFSF53SJ1"
+def idChatAndroidSlack = "CQUSH8KMX"
 
 //vars
 def branchName = ""
@@ -106,7 +107,7 @@ pipeline.stages = [
             RepositoryUtil.saveCurrentGitCommitHash(script)
         },
         pipeline.stage(NOTIFY_ABOUT_NEW_RELEASE_NOTES, StageStrategy.UNSTABLE_WHEN_STAGE_ERROR, false) {
-            def prevCommitHash = script.sh(returnStdout: true, script: 'git log -1  --pretty=%P').trim()
+            def prevCommitHash = script.sh(returnStdout: true, script: 'git log -1  --pretty=%P').trim().split(' ')[0]
             script.sh("./gradlew writeToFileReleaseNotesDiff -PrevisionToCompare=${prevCommitHash}")
             String releaseNotesChanges = script.readFile(releaseNotesChangesFileUrl)
             if (releaseNotesChanges.trim() != "") {
